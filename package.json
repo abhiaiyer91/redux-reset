@@ -28,6 +28,10 @@
     "react-tools": "^0.13.3",
     "redux": "^3.5.2"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhiaiyer91/redux-reset.git"
+  },
   "eslintConfig": {
     "parser": "babel-eslint",
     "extends": [
