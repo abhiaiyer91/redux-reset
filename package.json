@@ -1,6 +1,6 @@
 {
   "name": "redux-reset-store",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Higher Order Reducer for resetting multiple parts of your state tree",
   "main": "dist/index.js",
   "directories": {
