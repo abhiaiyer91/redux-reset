@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import { createStore, combineReducers } from 'redux';
-import { composeResetReducer } from '../src/reset';
+import { composeResetReducer, DEFAULT_RESET_TYPE } from '../src/reset';
 
 function toggleState(store) {
   return store.dispatch({
@@ -14,14 +14,14 @@ function resetState(type, store) {
   });
 }
 
-describe('Reset Reducer', () => {
-  function testReducer(state = false, action) {
-    if (action.type === 'TOGGLE') {
-      return true;
-    }
-    return state;
+function testReducer(state = false, action) {
+  if (action.type === 'TOGGLE') {
+    return true;
   }
+  return state;
+}
 
+describe('Reset Reducer', () => {
   it('should reset state of the reducer', () => {
     const rootReducer = combineReducers({
       test: composeResetReducer(testReducer, false),
@@ -30,7 +30,7 @@ describe('Reset Reducer', () => {
     // toggle the state
     toggleState(store);
     // reset
-    resetState('RESET_STATE', store);
+    resetState(DEFAULT_RESET_TYPE, store);
     assert.equal(store.getState().test, false);
   });
 
@@ -45,5 +45,23 @@ describe('Reset Reducer', () => {
     // reset
     resetState(testType, store);
     assert.equal(store.getState().test, false);
+  });
+
+  it('should reset state with initialStates', () => {
+    const rootReducer = composeResetReducer(
+      combineReducers({
+        test: testReducer,
+        test2: testReducer,
+      }),
+      { test2: true },
+    );
+
+    const store = createStore(rootReducer);
+    // toggle the state
+    toggleState(store);
+    // reset
+    resetState(DEFAULT_RESET_TYPE, store);
+    assert.equal(store.getState().test, false);
+    assert.equal(store.getState().test2, true);
   });
 });

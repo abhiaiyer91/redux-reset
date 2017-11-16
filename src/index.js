@@ -1,1 +1,1 @@
-export { composeResetReducer } from './reset';
+export { composeResetReducer, DEFAULT_RESET_TYPE } from './reset';
