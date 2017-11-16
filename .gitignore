@@ -3,3 +3,4 @@ npm-debug.log
 coverage
 dist
 .idea/
+yarn.lock

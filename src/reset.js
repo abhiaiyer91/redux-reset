@@ -1,4 +1,4 @@
-const DEFAULT_RESET_TYPE = 'RESET_STATE';
+export const DEFAULT_RESET_TYPE = 'RESET_STATE';
 /**
  * Add a reset to store state for given reducer
  * @param reducer
@@ -9,9 +9,10 @@ const DEFAULT_RESET_TYPE = 'RESET_STATE';
 export const composeResetReducer = function composeResetReducer(reducer, initialState, resetType) {
   const resetActionType = resetType || DEFAULT_RESET_TYPE;
   return function composedReducer(state, action) {
+    let newState = state;
     if (action.type === resetActionType) {
-      return initialState;
+      newState = initialState;
     }
-    return reducer(state, action);
+    return reducer(newState, action);
   };
 };
